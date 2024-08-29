@@ -51,7 +51,7 @@ with t2:
     for el in test.data:
         col1.metric(el['artist'], el['song'])
         if col2.button('Velg'):
-            with st.form(str(uuid.uuid4())):
+            with st.form(str(uuid.uuid4()):
                 form_name = st.text_input("Hva er navnet ditt?")
                 st.form_submit_button("Send inn!")
                 supabase.table("qeuer").insert({"uuid": user_uuid, 
