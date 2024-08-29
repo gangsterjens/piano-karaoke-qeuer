@@ -1,6 +1,8 @@
 import streamlit as st
 from supabase import create_client, Client
 
+st.markdown("# Karaoke-kø)
+
 # Initialize connection.
 # Uses st.cache_resource to only run once.
 @st.cache_resource
@@ -10,6 +12,8 @@ def init_connection():
     return create_client(url, key)
 
 supabase = init_connection()
+
+test = supabase.table("qeuer").select("*").execute()
 
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
