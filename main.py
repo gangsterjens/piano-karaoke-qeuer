@@ -50,19 +50,22 @@ with t2:
     col1, col2 = st.columns(2)
     for el in test.data:
         col1.metric(el['artist'], el['song'])
-        if col2.button('Velg'):
-            with st.form(str(uuid.uuid4()):
-                form_name = st.text_input("Hva er navnet ditt?")
-                st.form_submit_button("Send inn!")
-                supabase.table("qeuer").insert({"uuid": user_uuid, 
-                                            "name": form_name,
-                                            "song": el['song'],
-                                            "artist": el['artist'],
-                                            "created_at": current_time}).execute()
-                st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
-                
         
+        # Generate a unique ID for the form and button
+        unique_id = str(uuid.uuid4())
+        
+        if col2.button('Velg', key=f"button_{unique_id}"):
+            with st.form(f"form_{unique_id}"):
+                form_name = st.text_input("Hva er navnet ditt?", key=f"form_name_{unique_id}")
+                submitted = st.form_submit_button("Send inn!")
                 
-    
-    
-    
+                if submitted:
+                    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    supabase.table("qeuer").insert({
+                        "uuid": user_uuid, 
+                        "name": form_name,
+                        "song": el['song'],
+                        "artist": el['artist'],
+                        "created_at": current_time
+                    }).execute()
+                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
