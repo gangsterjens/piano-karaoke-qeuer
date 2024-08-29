@@ -47,22 +47,29 @@ with t1:
                                             "artist": artist,
                                             "created_at": current_time}).execute()
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
+
+# Assuming supabase and user_uuid are already defined
 with t2:
-  test = supabase.table("song_list").select("*").execute()
-  
-  for el in test.data:
-    col1, col2 = st.columns([7, 2])
-    col1.markdown(f" ### {el['artist']} {el['song']}")
-    unique_key = str(uuid.uuid4())
-    with col2.popover('Velg'):
-      form_name = st.text_input('Navn')
-      if st.button('Send inn', key=unique_key):  
-        supabase.table("qeuer").insert({"uuid": user_uuid, 
-                                    "name": form_name,
-                                    "song": song,
-                                    "artist": artist,
-                                    "created_at": current_time}).execute()
-        st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+    test = supabase.table("song_list").select("*").execute()
+
+    for index, el in enumerate(test.data):
+        col1, col2 = st.columns([7, 2])
+        col1.markdown(f" ### {el['artist']} {el['song']}")
+
+        with col2:
+            with st.expander("Velg"):  # This acts like a popover
+                form_name = st.text_input('Navn', key=f"text_input_{index}_{uuid.uuid4()}")
+                if st.button('Send inn', key=f"button_{index}_{uuid.uuid4()}"):  
+                    current_time = datetime.utcnow()
+                    supabase.table("qeuer").insert({
+                        "uuid": user_uuid, 
+                        "name": form_name,
+                        "song": el['song'],
+                        "artist": el['artist'],
+                        "created_at": current_time
+                    }).execute()
+                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+
       
       
   
