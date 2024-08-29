@@ -47,10 +47,6 @@ with t1:
                                             "artist": artist,
                                             "created_at": current_time}).execute()
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
-    
-# Initialize a session state variable to track which form to show
-
-
 with t2:
   test = supabase.table("song_list").select("*").execute()
   
@@ -58,7 +54,7 @@ with t2:
     col1, col2 = st.columns([7, 2])
     col1.markdown(f" ### {el['artist']} {el['song']}")
     unique_key = str(uuid.uuid4())
-    with col2.popover(unique_key):
+    with col2.popover('Velg'):
       form_name = st.text_input('Navn')
       if st.button('Send inn', key=unique_key):  
         supabase.table("qeuer").insert({"uuid": user_uuid, 
