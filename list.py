@@ -16,7 +16,7 @@ supabase = init_connection()
 if st.button('Last inn:'):
     queue_list = supabase.table("qeuer").select("*").execute()
 
-    df['created_at
+    df['created_at'] = pd.to_datetime(df['created_at'])
 
     df = pd.DataFrame(queue_list.data).sort_values('created_at', ascending=False)
 
