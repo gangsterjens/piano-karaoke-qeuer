@@ -51,13 +51,14 @@ with t2:
     test = supabase.table("song_list").select("*").execute()
     
     for el in test.data:
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns([4, 1, 3])
         col1.markdown(f" ### {el['artist']} {el['song']}")
         unique_key = str(uuid.uuid4())
         if col2.button('Velg', key='button'+unique_key):
-            with st.form(unique_key):
-                form_name = st.text_input("Hva er navnet ditt?")
-                if st.form_submit_button("Send inn!"):
+            with col3.form(unique_key):
+                uc1, uc2 = col3.columns(2)
+                form_name = uc1.text_input("Hva er navnet ditt?")
+                if uc2.form_submit_button("Send inn!"):
                     supabase.table("qeuer").insert({"uuid": user_uuid, 
                                                 "name": form_name,
                                                 "song": el['song'],
