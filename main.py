@@ -28,10 +28,10 @@ if st.button("Send inn!"):
     if len(name) == 0:
         st.error("Vennligst skriv navnet ditt")
     
-    elif song is None:
+    elif len(song) == 0:
         st.error("Sang mangler")
     
-    elif artist is None:
+    elif len(artist) == 0:
         st.error("Artist mangler")
     else:
         current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
