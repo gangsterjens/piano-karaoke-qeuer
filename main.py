@@ -68,7 +68,6 @@ with t2:
                         "artist": el['artist'],
                         "created_at": current_time
                     }).execute()
-                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
 
       
       
