@@ -15,9 +15,7 @@ supabase = init_connection()
 
 queue_list = supabase.table("qeuer").select("*").execute()
 
-df = pd.DataFrame(qeue_list.data).sort_values('created_at', ascending=False)
-
-col1, col2, col3 = st.columns(3)
+df = pd.DataFrame(queue_list.data).sort_values('created_at', ascending=False)
 
 st.dataframe(df)
                                               
