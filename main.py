@@ -40,6 +40,7 @@ if st.button("Send inn!"):
                                         "song": song,
                                         "artist": artist,
                                         "created_at": current_time}).execute()
+        st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
 
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
