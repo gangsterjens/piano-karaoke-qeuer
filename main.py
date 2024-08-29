@@ -46,12 +46,14 @@ with t1:
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
     
 # Initialize a session state variable to track which form to show
+
 with t2:
+    songs = supabase.table("song_list").select("*").execute()
     if "form_key" not in st.session_state:
         st.session_state.form_key = None
     
     # Loop through each song in the fetched data
-    for el in test.data:
+    for el in songs.data:
         col1, col2 = st.columns(2)
         
         # Display artist and song information
