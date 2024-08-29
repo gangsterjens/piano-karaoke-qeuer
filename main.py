@@ -50,7 +50,7 @@ with t2:
     col1, col2 = st.columns(2)
     for el in test.data:
         col1.metric(el['artist'], el['song'])
-        if col2.box('Velg'):
+        if col2.button('Velg'):
             with st.form('Info'):
                 form_name = st.text_input("Hva er navnet ditt?")
                 st.form_submit_button("Send inn!")
