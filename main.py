@@ -57,11 +57,11 @@ with t2:
         if col2.button('Velg', key='button'+unique_key):
             with st.form(unique_key):
                 form_name = st.text_input("Hva er navnet ditt?")
-                st.form_submit_button("Send inn!")
-                supabase.table("qeuer").insert({"uuid": user_uuid, 
-                                            "name": form_name,
-                                            "song": el['song'],
-                                            "artist": el['artist'],
-                                            "created_at": current_time}).execute()
-                st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+                if st.form_submit_button("Send inn!"):
+                    supabase.table("qeuer").insert({"uuid": user_uuid, 
+                                                "name": form_name,
+                                                "song": el['song'],
+                                                "artist": el['artist'],
+                                                "created_at": current_time}).execute()
+                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
         st.markdown("<hr>", unsafe_allow_html=True)
