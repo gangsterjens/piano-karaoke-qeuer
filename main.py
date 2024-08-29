@@ -3,9 +3,8 @@ from supabase import create_client, Client
 import uuid
 import datetime 
 
-t1, t2 = st.tabs(2)
-t1.write("Skjema")
-t2.write("liste over sanger")
+t1, t2 = st.tabs(['Skjema', 'Liste'])
+
 with t1:
     user_uuid = str(uuid.uuid4())
     
