@@ -3,13 +3,13 @@ from supabase import create_client, Client
 import uuid
 import datetime 
 
-def send_in_from_list(user_uuid, form_name, song, artist):
-                    supabase.table("qeuer").insert({"uuid": user_uuid, 
-                                                "name": form_name,
-                                                "song": song,
-                                                "artist": artist,
-                                                "created_at": current_time}).execute()
-                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+
+supabase.table("qeuer").insert({"uuid": user_uuid, 
+                            "name": form_name,
+                            "song": song,
+                            "artist": artist,
+                            "created_at": current_time}).execute()
+st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
 
 
 t1, t2 = st.tabs(['Skjema', 'Liste'])
@@ -64,7 +64,7 @@ with t2:
     col1, col2 = st.columns([7, 2])
     col1.markdown(f" ### {el['artist']} {el['song']}")
     unique_key = str(uuid.uuid4())
-    with col2.popover('Velg'):
+    with col2.popover(unique_key):
       form_name = st.text_input('Navn')
       if st.button('Send inn', key=unique_key):
         send_in_from_list(unique_key, form_name, el['song'], el['artist'])
