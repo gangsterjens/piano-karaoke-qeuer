@@ -57,8 +57,9 @@ with t2:
     test = supabase.table("song_list").select("*").execute()
 
     for index, el in enumerate(test.data):
+        st.markdown("<hr>", unsafe_allow_html=True)
         col1, col2 = st.columns([7, 2])
-        col1.markdown(f" ### {el['artist']} {el['song']}")
+        col1.markdown(f" ### {el['artist']} |     {el['song']}")
 
         with col2:
             # Unique keys for each input and button
@@ -90,4 +91,4 @@ with t2:
       
       
   
-    st.markdown("<hr>", unsafe_allow_html=True)
+    
