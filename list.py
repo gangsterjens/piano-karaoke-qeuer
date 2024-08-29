@@ -18,15 +18,5 @@ if st.button('Last inn:'):
 
     df = pd.DataFrame(queue_list.data).sort_values('created_at', ascending=False)
 
-    c1, c2, c3 = st.columns(3)
-    c1.text('NAVN')
-    c2.text('SANG')
-    c3.text('ARTIST')
-    for index, row in df.head(5).iterrows():
-        c1.text(row['name'])
-        c2.text(row['song'])
-        c3.text(row['artist'])
-        c1.text('----')
-        c2.text('----')
-        c3.text('----')
+    st.dataframe(df[['name', 'song', 'artist']])
                                               
