@@ -1,7 +1,7 @@
 import streamlit as st
 from supabase import create_client, Client
 
-st.markdown("# Karaoke-kø)
+st.markdown("# Karaoke-kø")
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
