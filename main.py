@@ -47,7 +47,7 @@ with t1:
     
 with t2:
     test = supabase.table("song_list").select("*").execute()
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     for el in test.data:
         col1.metric(el['artist'], el['song'])
         
@@ -55,7 +55,8 @@ with t2:
         unique_id = str(uuid.uuid4())
         
         if col2.button('Velg', key=f"button_{unique_id}"):
-            with st.form(f"form_{unique_id}"):
+            unique_id = str(uuid.uuid4())
+            with col3.form(f"form_{unique_id}"):
                 form_name = st.text_input("Hva er navnet ditt?", key=f"form_name_{unique_id}")
                 submitted = st.form_submit_button("Send inn!")
                 
