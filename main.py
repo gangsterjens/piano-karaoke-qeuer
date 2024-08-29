@@ -1,5 +1,9 @@
 import streamlit as st
 from supabase import create_client, Client
+import uuid
+import datetime 
+
+user_uuid = str(uuid.uuid4())
 
 st.markdown("# Karaoke-kø")
 
@@ -13,10 +17,19 @@ def init_connection():
 
 supabase = init_connection()
 
-test = supabase.table("qeuer").select("*").execute()
+#test = supabase.table("qeuer").select("*").execute()
+st.markdown("Skjema for sangforespørsel")
+name = st.text_input("Hva er navnet ditt?")
+song = st.text_input("Hvilken sang vil du spille?")
+artist = st.text_input("Hva heter artisten?")
 
-for row in test.data:
-    st.markdown(row)
+if button == True:
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    supabase.table("qeuer").insert({"uuid": user_uuid, 
+                                    "name": name,
+                                    "song": song,
+                                    "artist": artist,
+                                    "created_at": current_time}).execute()
 
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
