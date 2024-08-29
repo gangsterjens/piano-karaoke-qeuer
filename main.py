@@ -63,7 +63,6 @@ with t2:
 
         with col2:
             # Unique keys for each input and button
-            uc1, uc2 = st.columns(3, 1)
             text_input_key = f"text_input_{index}"
             button_key = f"button_{index}"
 
@@ -72,8 +71,8 @@ with t2:
                 st.session_state.submitted[button_key] = False
 
             if not st.session_state.submitted[button_key]:
-                form_name = uc1.text_input('Navn', key=text_input_key)
-                if uc2.button('Send inn', key=button_key):
+                form_name = st.text_input('Navn', key=text_input_key)
+                if st.button('Send inn', key=button_key):
                     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     supabase.table("qeuer").insert({
                         "uuid": user_uuid, 
