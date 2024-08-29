@@ -63,7 +63,7 @@ with t2:
 
         with col2:
             # Unique keys for each input and button
-            uc1, uc2 = col2.columns(3, 1)
+            uc1, uc2 = st.columns(3, 1)
             text_input_key = f"text_input_{index}"
             button_key = f"button_{index}"
 
