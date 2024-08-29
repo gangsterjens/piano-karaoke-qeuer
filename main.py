@@ -47,8 +47,9 @@ with t1:
     
 with t2:
     test = supabase.table("song_list").select("*").execute()
-    col1, col2 = st.columns(2)
+    
     for el in test.data:
+        col1, col2 = st.columns(2)
         col1.text(el['artist'] + '||' + el['song'])
         unique_key = str(uuid.uuid4())
         if col2.button('Velg', key='button'+unique_key):
@@ -61,3 +62,4 @@ with t2:
                                             "artist": el['artist'],
                                             "created_at": current_time}).execute()
                 st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+        st.markdown("<hr>", unsafe_allow_html=True)
