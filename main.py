@@ -23,13 +23,22 @@ name = st.text_input("Hva er navnet ditt?")
 song = st.text_input("Hvilken sang vil du spille?")
 artist = st.text_input("Hva heter artisten?")
 
-if button == True:
-    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    supabase.table("qeuer").insert({"uuid": user_uuid, 
-                                    "name": name,
-                                    "song": song,
-                                    "artist": artist,
-                                    "created_at": current_time}).execute()
+if st.button("Send inn!"):
+    if name is None:
+        st.error("Vennligst skriv navnet ditt")
+    
+    elif song is None:
+        st.error("Sang mangler")
+    
+    elif artist is None:
+        st.error("Artist mangler")
+    else:
+        current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        supabase.table("qeuer").insert({"uuid": user_uuid, 
+                                        "name": name,
+                                        "song": song,
+                                        "artist": artist,
+                                        "created_at": current_time}).execute()
 
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
