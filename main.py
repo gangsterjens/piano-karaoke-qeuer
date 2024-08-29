@@ -57,36 +57,34 @@ with t1:
 # Initialize a session state variable to track which form to show
 
 with t2:
-    test = supabase.table("song_list").select("*").execute()
+     test = supabase.table("song_list").select("*").execute()
     
-    # Initialize a session state to track the selected song and artist
+    # Initialize session state to track which song is selected
     if 'selected_song' not in st.session_state:
         st.session_state['selected_song'] = None
         st.session_state['selected_artist'] = None
-        st.session_state['form_key'] = None
     
     for el in test.data:
-        # Displaying the song title and artist
         col1, col2, col3 = st.columns([4, 1, 3])
         col1.markdown(f"### {el['artist']} - {el['song']}")
         
         # Create a unique key for each song item
         unique_key = str(uuid.uuid4())
         
-        # If the "Velg" button is clicked, store the song and artist in session state
-        if col2.button('Velg', key='button'+unique_key):
+        if col2.button('Velg', key=unique_key):
+            # Store the selected song and artist in session state
             st.session_state['selected_song'] = el['song']
             st.session_state['selected_artist'] = el['artist']
-            st.session_state['form_key'] = 'form' + unique_key
+            st.session_state['unique_key'] = unique_key
     
-    # Check if a song has been selected and show the form
-    if st.session_state['selected_song']:
-        with st.form(key=st.session_state['form_key']):
+    # If a song has been selected, display the form below
+    if st.session_state.get('selected_song'):
+        st.markdown(f"### You selected: {st.session_state['selected_artist']} - {st.session_state['selected_song']}")
+        with st.form(key='form' + st.session_state['unique_key']):
             user_name = st.text_input("Your Name")
             submit_button = st.form_submit_button("Submit")
             
             if submit_button:
-                # Store the selected song, artist, and user's name
                 selected_song = st.session_state['selected_song']
                 selected_artist = st.session_state['selected_artist']
                 user_name_input = user_name
@@ -94,9 +92,9 @@ with t2:
                 st.write(f"You selected: {selected_song} by {selected_artist}")
                 st.write(f"User: {user_name_input}")
                 
-                # Reset the session state to allow another selection
+                # Reset session state to allow another selection
                 st.session_state['selected_song'] = None
                 st.session_state['selected_artist'] = None
-                st.session_state['form_key'] = None
+                st.session_state['unique_key'] = None
 
     st.markdown("<hr>", unsafe_allow_html=True)
