@@ -15,6 +15,8 @@ supabase = init_connection()
 
 test = supabase.table("qeuer").select("*").execute()
 
+print(test)
+
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
 #@st.cache_data(ttl=600)
