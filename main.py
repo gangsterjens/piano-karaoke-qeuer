@@ -58,11 +58,31 @@ with t1:
 
 with t2:
     test = supabase.table("song_list").select("*").execute()
-    
+  
     for el in test.data:
+        # Displaying the song title and artist
         col1, col2, col3 = st.columns([4, 1, 3])
-        col1.markdown(f" ### {el['artist']} {el['song']}")
+        col1.markdown(f"### {el['artist']} - {el['song']}")
+        
+        # Create a unique key for each song item
         unique_key = str(uuid.uuid4())
+        
+        # If the "Velg" button is clicked
         if col2.button('Velg', key='button'+unique_key):
+            # Open a form for user input
+            with st.form(key='form'+unique_key):
+                user_name = st.text_input("Your Name")
+                submit_button = st.form_submit_button("Submit")
+                
+                if submit_button:
+                    # Store the selected song, artist, and user's name
+                    selected_song = el['song']
+                    selected_artist = el['artist']
+                    user_name_input = user_name
                     
+                    st.write(f"You selected: {selected_song} by {selected_artist}")
+                    st.write(f"User: {user_name_input}")
+                    
+                    # Optionally, store this data or perform an action
+
         st.markdown("<hr>", unsafe_allow_html=True)
