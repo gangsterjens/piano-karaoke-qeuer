@@ -16,6 +16,8 @@ supabase = init_connection()
 if st.button('Last inn:'):
     queue_list = supabase.table("qeuer").select("*").execute()
 
+    df['created_at
+
     df = pd.DataFrame(queue_list.data).sort_values('created_at', ascending=False)
 
     st.dataframe(df[['name', 'song', 'artist']])
