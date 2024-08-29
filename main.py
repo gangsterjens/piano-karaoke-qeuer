@@ -19,12 +19,13 @@ supabase = init_connection()
 
 #test = supabase.table("qeuer").select("*").execute()
 st.markdown("Skjema for sangforespørsel")
+
 name = st.text_input("Hva er navnet ditt?")
 song = st.text_input("Hvilken sang vil du spille?")
 artist = st.text_input("Hva heter artisten?")
 
 if st.button("Send inn!"):
-    if len(name) != 0:
+    if len(name) == 0:
         st.error("Vennligst skriv navnet ditt")
     
     elif song is None:
