@@ -4,12 +4,6 @@ import uuid
 import datetime 
 
 
-supabase.table("qeuer").insert({"uuid": user_uuid, 
-                            "name": form_name,
-                            "song": song,
-                            "artist": artist,
-                            "created_at": current_time}).execute()
-st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
 
 
 t1, t2 = st.tabs(['Skjema', 'Liste'])
@@ -66,8 +60,13 @@ with t2:
     unique_key = str(uuid.uuid4())
     with col2.popover(unique_key):
       form_name = st.text_input('Navn')
-      if st.button('Send inn', key=unique_key):
-        send_in_from_list(unique_key, form_name, el['song'], el['artist'])
+      if st.button('Send inn', key=unique_key):  
+        supabase.table("qeuer").insert({"uuid": user_uuid, 
+                                    "name": form_name,
+                                    "song": song,
+                                    "artist": artist,
+                                    "created_at": current_time}).execute()
+        st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
       
       
   
