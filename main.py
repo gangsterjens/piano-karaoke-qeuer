@@ -24,7 +24,7 @@ song = st.text_input("Hvilken sang vil du spille?")
 artist = st.text_input("Hva heter artisten?")
 
 if st.button("Send inn!"):
-    if len(name) != 0
+    if len(name) != 0:
         st.error("Vennligst skriv navnet ditt")
     
     elif song is None:
