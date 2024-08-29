@@ -3,6 +3,15 @@ from supabase import create_client, Client
 import uuid
 import datetime 
 
+def send_in_from_list(user_uuid, form_name, song, artist):
+                    supabase.table("qeuer").insert({"uuid": user_uuid, 
+                                                "name": form_name,
+                                                "song": song,
+                                                "artist": artist,
+                                                "created_at": current_time}).execute()
+                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+
+
 t1, t2 = st.tabs(['Skjema', 'Liste'])
 
 with t1:
@@ -55,14 +64,5 @@ with t2:
         col1.markdown(f" ### {el['artist']} {el['song']}")
         unique_key = str(uuid.uuid4())
         if col2.button('Velg', key='button'+unique_key):
-            with col3.form(unique_key):
-                uc1, uc2 = col3.columns(2)
-                form_name = uc1.text_input("Hva er navnet ditt?")
-                if uc2.form_submit_button("Send inn!"):
-                    supabase.table("qeuer").insert({"uuid": user_uuid, 
-                                                "name": form_name,
-                                                "song": el['song'],
-                                                "artist": el['artist'],
-                                                "created_at": current_time}).execute()
-                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+                    
         st.markdown("<hr>", unsafe_allow_html=True)
