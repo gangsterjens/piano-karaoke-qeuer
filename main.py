@@ -55,8 +55,11 @@ if "submitted" not in st.session_state:
 
 with t2:
     test = supabase.table("song_list").select("*").execute()
+    search_query = st.text_input("Search for a song or artist")
+    filtered_data = [el for el in test.data if search_query.lower() in el['artist'].lower() or search_query.lower() in el['song'].lower()]
 
-    for index, el in enumerate(test.data):
+
+    for index, el in enumerate(filtered_data):
         st.markdown("<hr>", unsafe_allow_html=True)
         col1, col2 = st.columns([7, 2])
         col1.markdown(f" ### {el['artist']} |     {el['song']}")
