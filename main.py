@@ -64,9 +64,9 @@ with t2:
     col1, col2 = st.columns([7, 2])
     col1.markdown(f" ### {el['artist']} {el['song']}")
     unique_key = str(uuid.uuid4())
-    with col2.popover('Velg', key=unique_key):
+    with col2.popover('Velg'):
       form_name = st.text_input('Navn')
-      if st.button('Send inn'):
+      if st.button('Send inn', key=unique_key):
         send_in_from_list(unique_key, form_name, el['song'], el['artist'])
       
       
