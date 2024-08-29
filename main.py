@@ -50,7 +50,7 @@ with t2:
     
     for el in test.data:
         col1, col2 = st.columns(2)
-        col1.text(el['artist'] + '||' + el['song'])
+        col1.markdown(f" ### {el['artist']} {el['song']})"
         unique_key = str(uuid.uuid4())
         if col2.button('Velg', key='button'+unique_key):
             with st.form(unique_key):
