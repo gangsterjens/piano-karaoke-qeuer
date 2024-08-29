@@ -51,7 +51,7 @@ with t2:
     for el in test.data:
         col1.metric(el['artist'], el['song'])
         unique_key = str(uuid.uuid4())
-        if col2.button('Velg', key=f"button_{unique_key}"):
+        if col2.button('Velg'):
             with st.form(unique_key):
                 form_name = st.text_input("Hva er navnet ditt?")
                 st.form_submit_button("Send inn!")
