@@ -49,6 +49,10 @@ with t1:
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
 
 # Assuming supabase and user_uuid are already defined
+# Initialize session state for text inputs and button clicks
+if "submitted" not in st.session_state:
+    st.session_state.submitted = {}
+
 with t2:
     test = supabase.table("song_list").select("*").execute()
 
@@ -57,9 +61,17 @@ with t2:
         col1.markdown(f" ### {el['artist']} {el['song']}")
 
         with col2:
-            with st.expander("Velg"):  # This acts like a popover
-                form_name = st.text_input('Navn', key=f"text_input_{index}_{uuid.uuid4()}")
-                if st.button('Send inn', key=f"button_{index}_{uuid.uuid4()}"):  
+            # Unique keys for each input and button
+            text_input_key = f"text_input_{index}"
+            button_key = f"button_{index}"
+
+            # Check if form has been submitted for this song
+            if button_key not in st.session_state.submitted:
+                st.session_state.submitted[button_key] = False
+
+            if not st.session_state.submitted[button_key]:
+                form_name = st.text_input('Navn', key=text_input_key)
+                if st.button('Send inn', key=button_key):
                     current_time = datetime.utcnow()
                     supabase.table("qeuer").insert({
                         "uuid": user_uuid, 
@@ -68,6 +80,11 @@ with t2:
                         "artist": el['artist'],
                         "created_at": current_time
                     }).execute()
+                    st.session_state.submitted[button_key] = True
+                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+            else:
+                st.write("Request already submitted.")
+
 
       
       
