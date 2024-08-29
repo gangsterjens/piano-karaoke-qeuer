@@ -72,7 +72,7 @@ with t2:
             if not st.session_state.submitted[button_key]:
                 form_name = st.text_input('Navn', key=text_input_key)
                 if st.button('Send inn', key=button_key):
-                    current_time = datetime.utcnow()
+                    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     supabase.table("qeuer").insert({
                         "uuid": user_uuid, 
                         "name": form_name,
