@@ -55,7 +55,7 @@ if "submitted" not in st.session_state:
 
 with t2:
     test = supabase.table("song_list").select("*").execute()
-    search_query = st.text_input("Search for a song or artist")
+    search_query = st.text_input("Søk etter sang eller artist")
     filtered_data = [el for el in test.data if search_query.lower() in el['artist'].lower() or search_query.lower() in el['song'].lower()]
 
 
