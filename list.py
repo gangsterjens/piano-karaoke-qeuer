@@ -19,7 +19,7 @@ df = pd.DataFrame(queue_list.data).sort_values('created_at', ascending=False)
 
 c1, c2, c3 = st.columns(3)
 for index, row in df.iterrows():
-    c1.metric("Navn", row['name')
-    c2.metric("Sang", row['song')
-    c3.metric("Artist", row['artist')
+    c1.metric("Navn", row['name'])
+    c2.metric("Sang", row['song'])
+    c3.metric("Artist", row['artist'])
                                               
