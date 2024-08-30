@@ -12,11 +12,11 @@ def init_connection():
     return create_client(url, key)
 
 supabase = init_connection()
-queue_list = supabase.table("qeuer").select("*").execute()
+queue_list = supabase.table("qeuer").select("*").eq("have_played", False).execute()
 
 df = pd.DataFrame(queue_list.data)
 df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%dT%H:%M:%S', errors='coerce')
-df = df.sort_values('created_at', ascending=False)
+df = df.sort_values('created_at')
 
 if 'buttons_clicked' not in st.session_state:
     st.session_state['buttons_clicked'] = set()
