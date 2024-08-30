@@ -6,7 +6,7 @@ import datetime
 
 
 
-t1, t2 = st.tabs(['Skjema', 'Liste'])
+t2, t1 = st.tabs(['Skjema', 'Liste'])
 
 with t1:
     user_uuid = str(uuid.uuid4())
