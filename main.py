@@ -10,8 +10,8 @@ st.markdown("# Påmelding Karaoke - Broker! ")
 st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stjele showet fra mannen bak pianoet på pianobar, når vi kjører live-karakoe")
             
 st.info("""
-            Velg enten fra listen av sanger vi vet vi kan, eller kom med forslag til sanger (men er mulig vi ikke kan den)
-            Kom gjerne opp til oss og spør om vi kan sangen!             
+            Velg enten fra listen av sanger vi vet vi kan, eller kom med forslag til sanger (men er mulig vi ikke kan den) \n
+            Kom gjerne opp til oss og spør om vi kan sangen!             \n
             Appen her er ganske fersk også, så om den failer, kom å si ifra!
 """
        )
