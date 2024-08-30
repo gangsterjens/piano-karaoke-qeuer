@@ -73,24 +73,24 @@ with t2:
             if button_key not in st.session_state.submitted:
                 st.session_state.submitted[button_key] = False
 
-            if not st.session_state.submitted[button_key]:
-                form_name = st.text_input('Skriv inn navnet ditt her', key=text_input_key)
-                button_send = st.button('Send inn', key=button_key)
-                if button_send and len(form_name) == 0:
-                    st.error('Skriv inn navnet ditt')
-                elif button_send and len(form_name) > 0:
-                    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    supabase.table("qeuer").insert({
-                        "uuid": user_uuid, 
-                        "name": form_name,
-                        "song": el['song'],
-                        "artist": el['artist'],
-                        "created_at": current_time
-                    }).execute()
-                    st.session_state.submitted[button_key] = True
-                    st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
-            else:
-                st.write("Request already submitted.")
+        #if not st.session_state.submitted[button_key]:
+            form_name = st.text_input('Skriv inn navnet ditt her', key=text_input_key)
+            button_send = st.button('Send inn', key=button_key)
+            if button_send and len(form_name) == 0:
+                st.error('Skriv inn navnet ditt')
+            elif button_send and len(form_name) > 0:
+                current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                supabase.table("qeuer").insert({
+                    "uuid": user_uuid, 
+                    "name": form_name,
+                    "song": el['song'],
+                    "artist": el['artist'],
+                    "created_at": current_time
+                }).execute()
+                st.session_state.submitted[button_key] = True
+                st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+            #else:
+#                st.write("Request already submitted.")
 
 
       
