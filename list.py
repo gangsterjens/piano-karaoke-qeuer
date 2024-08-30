@@ -27,7 +27,7 @@ co3.write('Fjern når sang ferdig / ikke møtt opp')
 df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
 for index, row in df.iterrows():
     st.markdown("<hr>", unsafe_allow_html=True)
-    c1, c2, c3 = st.columns([5, 4, 2])
+    c1, c2, c3 = st.columns([3, 4, 2])
     c1.write(f"{row['name']}")
     c2.write(f" {row['song']} | {row['artist']}")
 
