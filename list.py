@@ -24,7 +24,6 @@ co1, co2, co3 = st.columns([5, 4, 2])
 co1.markdown('## Navn')
 co2.markdown(' ## Sang/ Artist')
 co3.write('Fjern når sang ferdig / ikke møtt opp')
-st.markdown("<hr>", unsafe_allow_html=True)
 df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
 for index, row in df.iterrows():
     st.markdown("<hr>", unsafe_allow_html=True)
