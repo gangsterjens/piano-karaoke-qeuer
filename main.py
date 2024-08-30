@@ -4,19 +4,11 @@ import uuid
 import datetime 
 
 
-user_uuid = str(uuid.uuid4())
-st.markdown("# Påmelding karaoke")
-st.markdown("Her kan du enten velge en sang ut ifra vår lille liste med forslag, eller du kan komme med egne ønsker.")
-st.markdown("Merk at om du kommer med andre forslag, at det er mulig vi ikka har hørt/kan sangen, men vi skal prøve vår ytterste for å finne det ut sammen <3")
-st.markdown("Vi roper opp navnet ditt når det er din tur, siden dette er første gang vi kjører dette konseptet kjører vi teksten på en ipad!")
+
             
-t2, t1 = st.tabs(['Liste', 'Andre forslag'])
+t2, t1, t3 = st.tabs(['Liste', 'Andre forslag', 'tilbakemeldinger'])
 
 with t1:
-    
-    
-    
-    
     # Initialize connection.
     # Uses st.cache_resource to only run once.
     @st.cache_resource
@@ -99,12 +91,5 @@ with t2:
 #                st.write("Request already submitted.")
 
 
-      
-      
-st.info("Siden dette er første gang vi kjører dette, tar vi gjerne tilbakemeldinger!")
-
-feedback = st.text_input('Kom med feedback her <3')
-if (len(feedback) > 0) & len(feedback) < 200:
-    supabase.table("feedback".insert({"feedback": feedback}).execute()
 
     
