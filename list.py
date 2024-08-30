@@ -26,8 +26,8 @@ if st.button('Refresh'):
     df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
     for index, row in df.iterrows():
         c1, c2, c3 = st.columns([5, 4, 2])
-        c1.markdown(f"#### {row['name']}")
-        c2.markdown(f"## {row['song']} | {row['artist']}")
+        c1.write(f"{row['name']}")
+        c2.write(f" {row['song']} | {row['artist']}")
     
         # Use a unique key for each button
         if c3.button('Done', key=row['uuid']):
