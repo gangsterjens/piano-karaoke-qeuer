@@ -3,8 +3,7 @@ from supabase import create_client, Client
 import uuid
 import datetime 
 
-
-
+user_uuid = str(uuid.uuid4())
             
 t2, t1, t3 = st.tabs(['Liste', 'Andre forslag', 'tilbakemeldinger'])
 
