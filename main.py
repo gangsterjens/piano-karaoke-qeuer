@@ -93,7 +93,7 @@ with t2:
 with t3:
     st.info("Siden dette er første gang vi kjører dette, tar vi gjerne tilbakemeldinger!")
     feedback = st.text_input('Kom med feedback her <3')
-    button_feedback = st.buton('Send inn!', key='feedback')
+    button_feedback = st.button('Send inn!', key='feedback')
     if (len(feedback) > 0) & (len(feedback) < 200) & button_feedback:
         supabase.table("feedback").insert({"feedback_txt": feedback}).execute()
         st.success('Takk for din tilbakemelding!')
