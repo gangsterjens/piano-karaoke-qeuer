@@ -2,7 +2,6 @@ import streamlit as st
 from supabase import create_client, Client
 import datetime 
 import pandas as pd
-import 
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
