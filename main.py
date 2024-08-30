@@ -4,14 +4,18 @@ import uuid
 import datetime 
 
 
-
-
-t2, t1 = st.tabs(['Skjema', 'Liste'])
+user_uuid = str(uuid.uuid4())
+st.markdown("# Påmelding karaoke")
+st.markdown("Her kan du enten velge en sang ut ifra vår lille liste med forslag, eller du kan komme med egne ønsker.")
+st.markdown("Merk at om du kommer med andre forslag, at det er mulig vi ikka har hørt/kan sangen, men vi skal prøve vår ytterste for å finne det ut sammen <3")
+st.markdown("Vi roper opp navnet ditt når det er din tur, siden dette er første gang vi kjører dette konseptet kjører vi teksten på en ipad!")
+            
+t2, t1 = st.tabs(['Liste', 'Andre forslag'])
 
 with t1:
-    user_uuid = str(uuid.uuid4())
     
-    st.markdown("# Karaoke-kø")
+    
+    
     
     # Initialize connection.
     # Uses st.cache_resource to only run once.
@@ -54,6 +58,8 @@ if "submitted" not in st.session_state:
     st.session_state.submitted = {}
 
 with t2:
+    st.markdown("Her er en liste med sanger vi kan")
+    
     test = supabase.table("song_list").select("*").execute()
     search_query = st.text_input("Søk etter sang eller artist")
     filtered_data = [el for el in test.data if search_query.lower() in el['artist'].lower() or search_query.lower() in el['song'].lower()]
@@ -95,5 +101,10 @@ with t2:
 
       
       
-  
+st.info("Siden dette er første gang vi kjører dette, tar vi gjerne tilbakemeldinger!")
+
+feedback = st.text_input('Kom med feedback her <3')
+if (len(feedback) > 0) & len(feedback) < 200:
+    supabase.table("feedback".insert({"feedback": feedback}).execute()
+
     
