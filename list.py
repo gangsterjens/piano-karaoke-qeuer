@@ -37,6 +37,7 @@ for uuid in st.session_state.buttons_clicked:
     st.success(f"Updated row with uuid {uuid}")
         # Optionally, remove uuid from session state after successful update
     st.session_state.buttons_clicked.remove(uuid)
+    break
 st.rerun()
 
     
