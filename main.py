@@ -4,6 +4,14 @@ import uuid
 import datetime 
 
 user_uuid = str(uuid.uuid4())
+
+st.markdown("# Påmelding Karaoke - Broker! )
+
+st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stjele showet fra mannen bak pianoet på pianobar, når vi kjører live-karakoe")
+            
+st.markdown("Velg enten fra listen av sanger vi vet vi kan, eller kom med forslag til sanger (men er mulig vi ikke kan den)")
+st.markdown("Kom også opp til oss og spør om vi kan sangen! ")
+st.markdown("Appen her er ganske fersk også, så om den failer, kom å si ifra!")
             
 t2, t1, t3 = st.tabs(['Liste', 'Andre forslag', 'tilbakemeldinger'])
 
