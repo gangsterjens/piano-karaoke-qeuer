@@ -23,12 +23,13 @@ if 'buttons_clicked' not in st.session_state:
 
 df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
 for index, row in df.iterrows():
+    st.markdown("<hr>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns([5, 4, 2])
     c1.write(f"{row['name']}")
     c2.write(f" {row['song']} | {row['artist']}")
 
     # Use a unique key for each button
-    if c3.button('Done', key=row['uuid']):
+    if c3.button('Fjern', key=row['uuid']):
         st.session_state.buttons_clicked.add(row['uuid'])
 
 # After the loop, check session state and update the database
