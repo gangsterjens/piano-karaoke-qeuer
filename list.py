@@ -26,6 +26,7 @@ if st.button('Last inn:'):
         c1.markdown(f"#### {row['name']}")
         c2.markdown(f"## {row['song']} | {row['artist']}")
         if c3.button('Done', key=row['uuid']):
+            c3.markdown('Fjernet!')
             response = supabase.table('qeuer').update({"have_played": True}).eq("uuid", row['uuid']).execute()
             if response.error:
                 st.error(f"Failed to update: {response.error.message}")
