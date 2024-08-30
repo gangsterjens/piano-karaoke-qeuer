@@ -5,7 +5,7 @@ import datetime
 
 user_uuid = str(uuid.uuid4())
 
-st.markdown("# Påmelding Karaoke - Broker! )
+st.markdown("# Påmelding Karaoke - Broker! ")
 
 st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stjele showet fra mannen bak pianoet på pianobar, når vi kjører live-karakoe")
             
