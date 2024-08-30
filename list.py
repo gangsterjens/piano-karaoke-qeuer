@@ -23,6 +23,6 @@ if st.button('Last inn:'):
     df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
     for index, row in df.iterrows():
         c1, c2 = st.columns([9, 1])
-        c1.markdown(f"#### {row['name']}     | {row['song']} | {row['artist']}")
+        c1.markdown(f"#### {row['name']}|_________| {row['song']} | {row['artist']}")
         
                                               
