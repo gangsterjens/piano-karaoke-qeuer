@@ -18,6 +18,9 @@ df = pd.DataFrame(queue_list.data)
 df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%dT%H:%M:%S', errors='coerce')
 df = df.sort_values('created_at', ascending=False)
 
+if 'buttons_clicked' not in st.session_state:
+    st.session_state['buttons_clicked'] = set()
+
 df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
 for index, row in df.iterrows():
     c1, c2, c3 = st.columns([5, 4, 2])
