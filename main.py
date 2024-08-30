@@ -75,9 +75,10 @@ with t2:
 
             if not st.session_state.submitted[button_key]:
                 form_name = st.text_input('Skriv inn navnet ditt her', key=text_input_key)
-                if st.button('Send inn', key=button_key) and len(form_name) == 0:
+                button_send = st.button('Send inn', key=button_key)
+                if button_send and len(form_name) == 0:
                     st.error('Skriv inn navnet ditt')
-                elif st.button('Send inn', key=button_key) and len(form_name) > 0:
+                elif button_send and len(form_name) > 0:
                     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     supabase.table("qeuer").insert({
                         "uuid": user_uuid, 
