@@ -19,6 +19,10 @@ if st.button('Last inn:'):
     df = pd.DataFrame(queue_list.data)
     df['created_at'] = pd.to_datetime(df['created_at'])
     df = df.sort_values('created_at', ascending=False)
-
-    st.dataframe(df[['name', 'song', 'artist']])
+    
+    df = df[['uuid', 'name', 'song', 'artist', 'have_played']])
+    for index, row in df.iterrows():
+        c1, c2 = st.columns([9, 1])
+        c1.markdown(f"#### {row['name']} | {row['song']} | {row['artist']}"
+        
                                               
