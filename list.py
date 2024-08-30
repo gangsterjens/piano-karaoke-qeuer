@@ -27,6 +27,7 @@ if st.button('Last inn:'):
         c1.markdown(f"#### {row['name']}")
         c2.markdown(f"## {row['song']} | {row['artist']}")
         if c3.button('Done', key=row['uuid']):
-            supabase.table('qeuer').update({"have_played": True}).eq("uuid", row['uuid']).execute()
+            response = supabase.table('qeuer').update({"have_played": True}).eq("uuid", row['uuid']).execute()
+            st.markdown(response.status_code)
         
                                               
