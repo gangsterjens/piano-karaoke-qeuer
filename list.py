@@ -19,15 +19,17 @@ if st.button('Last inn:'):
     df = pd.DataFrame(queue_list.data)
     df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%dT%H:%M:%S', errors='coerce')
     df = df.sort_values('created_at', ascending=False)
-    
+
     df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
-    df = df[df['have_played'] == False]
     for index, row in df.iterrows():
-        c1, c2, c3 = st.columns([5,4, 2])
+        c1, c2, c3 = st.columns([5, 4, 2])
         c1.markdown(f"#### {row['name']}")
         c2.markdown(f"## {row['song']} | {row['artist']}")
         if c3.button('Done', key=row['uuid']):
             response = supabase.table('qeuer').update({"have_played": True}).eq("uuid", row['uuid']).execute()
-            st.markdown(response.status_code)
+            if response.error:
+                st.error(f"Failed to update: {response.error.message}")
+            else:
+                st.success(f"Updated row with uuid {row['uuid']}")
+                st.experimental_rerun()  # Rerun to refresh the data
         
-                                              
