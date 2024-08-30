@@ -25,7 +25,7 @@ if st.button('Last inn:'):
         c1, c2, c3 = st.columns([5,4, 1])
         c1.markdown(f"#### {row['name']}")
         c2.markdown("## {row['song']} | {row['artist']}")
-        if c3.button('Done', key=df['uuid']):
+        if c3.button('Done', key=row['uuid']):
             supabase.table(table_name).update({"column_name": True}).eq("id", df['uuid']).execute()
         
                                               
