@@ -23,15 +23,21 @@ if st.button('Last inn:'):
     df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
     for index, row in df.iterrows():
         c1, c2, c3 = st.columns([5, 4, 2])
-        c1.markdown(f"#### {row['name']} | {row['uuid']}")
-        c2.markdown(f"#### {row['song']} | {row['artist']}")
+        c1.markdown(f"#### {row['name']}")
+        c2.markdown(f"## {row['song']} | {row['artist']}")
+    
+        # Use a unique key for each button
         if c3.button('Done', key=row['uuid']):
-            c3.markdown('Fjernet!')
-            user_id = str(row['uuid'])
-            response = supabase.table('qeuer').update({"have_played": True}).eq("uuid", user_id).execute()
-            if response.error:
-                st.error(f"Failed to update: {response.error.message}")
-            else:
-                st.success(f"Updated row with uuid {row['uuid']}")
-                st.experimental_rerun()  # Rerun to refresh the data
+            st.session_state.buttons_clicked.add(row['uuid'])
+    
+    # After the loop, check session state and update the database
+    for uuid in st.session_state.buttons_clicked:
+        response = supabase.table('qeuer').update({"have_played": True}).eq("uuid", uuid).execute()
+        if response.error:
+            st.error(f"Failed to update: {response.error.message}")
+        else:
+            st.success(f"Updated row with uuid {uuid}")
+            # Optionally, remove uuid from session state after successful update
+            st.session_state.buttons_clicked.remove(uuid)
+
         
