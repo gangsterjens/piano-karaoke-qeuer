@@ -96,6 +96,6 @@ with t3:
     button_feedback = st.buton('Send inn!', key='feedback')
     if (len(feedback) > 0) & (len(feedback) < 200) & button_feedback:
         supabase.table("feedback").insert({"feedback_txt": feedback}).execute()
-                st.success('Takk for din tilbakemelding!')
+        st.success('Takk for din tilbakemelding!')
 
     
