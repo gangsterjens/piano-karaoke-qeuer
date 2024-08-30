@@ -21,8 +21,8 @@ df = df.sort_values('created_at')
 if 'buttons_clicked' not in st.session_state:
     st.session_state['buttons_clicked'] = set()
 co1, co2, co3 = st.columns([5, 4, 2])
-co1.write('Navn')
-co3.write('Sang/ Artist')
+co1.markdown('## Navn')
+co2.markdown(' ## Sang/ Artist')
 co3.write('Fjern når sang ferdig / ikke møtt opp')
 st.markdown("<hr>", unsafe_allow_html=True)
 df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
