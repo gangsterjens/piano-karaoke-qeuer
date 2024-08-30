@@ -17,7 +17,7 @@ if st.button('Last inn:'):
     queue_list = supabase.table("qeuer").select("*").execute()
 
     df = pd.DataFrame(queue_list.data)
-    df['created_at'] = pd.to_datetime(df['created_at'])
+    df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%dT%H:%M:%S', errors='coerce')
     df = df.sort_values('created_at', ascending=False)
     
     df = df[['uuid', 'name', 'song', 'artist', 'have_played']])
