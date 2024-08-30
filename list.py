@@ -36,12 +36,9 @@ if st.button('Refresh'):
     # After the loop, check session state and update the database
     for uuid in st.session_state.buttons_clicked:
         response = supabase.table('qeuer').update({"have_played": True}).eq("uuid", uuid).execute()
-        if response.error:
-            st.error(f"Failed to update: {response.error.message}")
-        else:
-            st.success(f"Updated row with uuid {uuid}")
+        st.success(f"Updated row with uuid {uuid}")
             # Optionally, remove uuid from session state after successful update
-            st.session_state.buttons_clicked.remove(uuid)
-            st.experimental_rerun()
+        st.session_state.buttons_clicked.remove(uuid)
+    st.experimental_rerun()
     
         
