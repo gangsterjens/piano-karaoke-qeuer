@@ -29,12 +29,6 @@ name = st.text_input("Hva er navnet ditt?")
 if st.button("Send inn!"):
     if len(name) == 0:
         st.error("Vennligst skriv navnet ditt")
-    
-    elif len(song) == 0:
-        st.error("Sang mangler")
-    
-    elif len(artist) == 0:
-        st.error("Artist mangler")
     else:
         current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         supabase.table("duell_list").insert({
