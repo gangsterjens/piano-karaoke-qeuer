@@ -7,9 +7,11 @@ user_uuid = str(uuid.uuid4())
 
 st.markdown("# Påmelding Karaoke/Beat for beat - Broker! ")
 
-st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stjele showet fra mannen bak pianoet på pianobar, når vi kjører live-karakoe")
 
-st.info("Ikveld kjører vi duell på grab the mic! To og to kommer opp, den som tar mic'n først og nailer sangen vinner! Men om du ikke nailer sangen, vinner du ikke og den andre kan ta over  ")
+
+st.info("Ikveld kjører vi duell på grab the mic! en og eo kommer opp, den som tar mic'n først og nailer sangen vinner! Men om du ikke nailer sangen, vinner du ikke og den andre kan ta over  ")
+
+st.markdown(" ## Vinneren av hver duell får en øl i baren!")
             
 
 
