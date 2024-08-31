@@ -5,35 +5,107 @@ import datetime
 
 user_uuid = str(uuid.uuid4())
 
-st.markdown("# Påmelding Karaoke/Beat for beat - Broker! ")
+st.markdown("# Påmelding Karaoke - Broker! ")
 
-
-
-st.info("Ikveld kjører vi duell på grab the mic! To stk blir ropt opp (1 vs 1) MEN det er lov å ha med opp til to lagkamerater/venner/uvenner, den som tar mic'n først og nailer sangen vinner! Men om du ikke nailer sangen, vinner du ikke og den andre kan ta over  ")
-
-st.markdown(" ## Vinneren av hver duell får en øl i baren!")
+st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stjele showet fra mannen bak pianoet på pianobar, når vi kjører live-karakoe")
             
+st.info("""
+            Velg enten fra listen av sanger vi vet vi kan, eller kom med forslag til sanger (men er mulig vi ikke kan den) \n
+            Kom gjerne opp til oss og spør om vi kan sangen!             \n
+            Appen her er ganske fersk også, så om den failer, kom å si ifra!
+"""
+       )
+            
+t2, t1, t3 = st.tabs(['Liste', 'Andre forslag', 'tilbakemeldinger'])
+
+with t1:
+    # Initialize connection.
+    # Uses st.cache_resource to only run once.
+    @st.cache_resource
+    def init_connection():
+        url = st.secrets["API_URL"]
+        key = st.secrets["API_KEY"]
+        return create_client(url, key)
+    
+    supabase = init_connection()
+    
+    #test = supabase.table("qeuer").select("*").execute()
+    st.markdown("Skjema for sangforespørsel")
+    
+    name = st.text_input("Hva er navnet ditt?")
+    song = st.text_input("Hvilken sang vil du spille?")
+    artist = st.text_input("Hva heter artisten?")
+    
+    if st.button("Send inn!"):
+        if len(name) == 0:
+            st.error("Vennligst skriv navnet ditt")
+        
+        elif len(song) == 0:
+            st.error("Sang mangler")
+        
+        elif len(artist) == 0:
+            st.error("Artist mangler")
+        else:
+            current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            supabase.table("qeuer").insert({"uuid": user_uuid, 
+                                            "name": name,
+                                            "song": song,
+                                            "artist": artist,
+                                            "created_at": current_time}).execute()
+            st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
+
+# Assuming supabase and user_uuid are already defined
+# Initialize session state for text inputs and button clicks
+if "submitted" not in st.session_state:
+    st.session_state.submitted = {}
+
+with t2:
+    st.markdown("Her er en liste med sanger vi kan")
+    
+    test = supabase.table("song_list").select("*").execute()
+    search_query = st.text_input("Søk etter sang eller artist")
+    filtered_data = [el for el in test.data if search_query.lower() in el['artist'].lower() or search_query.lower() in el['song'].lower()]
 
 
+    for index, el in enumerate(filtered_data):
+        st.markdown("<hr>", unsafe_allow_html=True)
+        col1, col2 = st.columns([7, 2])
+        col1.markdown(f" ### {el['artist']} |     {el['song']}")
 
-# Initialize connection.
-# Uses st.cache_resource to only run once.
-@st.cache_resource
-def init_connection():
-    url = st.secrets["API_URL"]
-    key = st.secrets["API_KEY"]
-    return create_client(url, key)
+        with col2:
+            # Unique keys for each input and button
+            text_input_key = f"text_input_{index}"
+            button_key = f"button_{index}"
 
-supabase = init_connection()
+            # Check if form has been submitted for this song
+            if button_key not in st.session_state.submitted:
+                st.session_state.submitted[button_key] = False
 
-name = st.text_input("Hva er navnet ditt?")
+        #if not st.session_state.submitted[button_key]:
+            form_name = st.text_input('Skriv inn navnet ditt her', key=text_input_key)
+            button_send = st.button('Send inn', key=button_key)
+            if button_send and len(form_name) == 0:
+                st.error('Skriv inn navnet ditt')
+            elif button_send and len(form_name) > 0:
+                current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                supabase.table("qeuer").insert({
+                    "uuid": user_uuid, 
+                    "name": form_name,
+                    "song": el['song'],
+                    "artist": el['artist'],
+                    "created_at": current_time
+                }).execute()
+                st.session_state.submitted[button_key] = True
+                st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+            #else:
+#                st.write("Request already submitted.")
 
-if st.button("Send inn!"):
-    if len(name) == 0:
-        st.error("Vennligst skriv navnet ditt")
-    else:
-        current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        supabase.table("duell_list").insert({
-                                        "name": name}).execute()
-        st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
+with t3:
+    st.info("Siden dette er første gang vi kjører dette, tar vi gjerne tilbakemeldinger!")
+    feedback = st.text_input('Kom med feedback her <3')
+    button_feedback = st.button('Send inn!', key='feedback')
+    if (len(feedback) > 0) & (len(feedback) < 200) & button_feedback:
+        supabase.table("feedback").insert({"feedback_txt": feedback}).execute()
+        st.success('Takk for din tilbakemelding!')
 
+    
