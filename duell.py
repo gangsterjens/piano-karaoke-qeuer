@@ -9,7 +9,7 @@ st.markdown("# Påmelding Karaoke/Beat for beat - Broker! ")
 
 
 
-st.info("Ikveld kjører vi duell på grab the mic! To stk blir ropt opp (1 vs 1, den som tar mic'n først og nailer sangen vinner! Men om du ikke nailer sangen, vinner du ikke og den andre kan ta over  ")
+st.info("Ikveld kjører vi duell på grab the mic! To stk blir ropt opp (1 vs 1) MEN det er lov å ha med opp til to lagkamerater/venner/uvenner, den som tar mic'n først og nailer sangen vinner! Men om du ikke nailer sangen, vinner du ikke og den andre kan ta over  ")
 
 st.markdown(" ## Vinneren av hver duell får en øl i baren!")
             
