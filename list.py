@@ -21,13 +21,25 @@ if len(queue_list.data) > 0:
     
     if 'buttons_clicked' not in st.session_state:
         st.session_state['buttons_clicked'] = set()
-    ### TEST
+    ### TEST ######################### Initialize session state
+    if 'confirm_remove_all' not in st.session_state:
+        st.session_state.confirm_remove_all = False
+
+# Button to initiate the removal process
     if st.button('Fjern alle'):
+        st.session_state.confirm_remove_all = True
+
+# If the user clicked 'Fjern alle', show confirmation
+    if st.session_state.confirm_remove_all:
         r1, r2 = st.columns(2)
         r1.error("Er du sikker på at du vil fjerne alle?")
         if r2.button("JA få bort skitn"):
+        # Execute the update query
             supabase.table('qeuer').update({"have_played": True}).eq("have_played", False).execute()
-    ### TEST
+        # Reset confirmation state
+            st.session_state.confirm_remove_all = False
+            st.success("Alle oppføringer ble fjernet.")
+    ### TEST ########################
     co1, co2, co3 = st.columns([3, 4, 2])
     co1.markdown('## Navn')
     co2.markdown(' ## Sang/ Artist')
