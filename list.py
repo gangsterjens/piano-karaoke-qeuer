@@ -21,6 +21,10 @@ if len(queue_list.data) > 0:
     
     if 'buttons_clicked' not in st.session_state:
         st.session_state['buttons_clicked'] = set()
+    ### TEST
+    if st.button('Fjern alle'):
+        supabase.table('qeuer').update({"have_played": True}).execute()
+    ### TEST
     co1, co2, co3 = st.columns([3, 4, 2])
     co1.markdown('## Navn')
     co2.markdown(' ## Sang/ Artist')
