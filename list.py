@@ -23,7 +23,10 @@ if len(queue_list.data) > 0:
         st.session_state['buttons_clicked'] = set()
     ### TEST
     if st.button('Fjern alle'):
-        supabase.table('qeuer').update({"have_played": True}).eq("have_played", False).execute()
+        r1, r2 = st.columns(2)
+        r1.error("Er du sikker på at du vil fjerne alle?")
+        if r2.button("JA få bort skitn"):
+            supabase.table('qeuer').update({"have_played": True}).eq("have_played", False).execute()
     ### TEST
     co1, co2, co3 = st.columns([3, 4, 2])
     co1.markdown('## Navn')
