@@ -12,7 +12,7 @@ st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stj
 st.info("""
             Velg enten fra listen av sanger vi vet vi kan, eller kom med forslag til sanger (men er mulig vi ikke kan den) \n
             Kom gjerne opp til oss og spør om vi kan sangen!             \n
-            Appen her er ganske fersk også, så om den failer, kom å si ifra!
+            Appen her er ganske fersk også, så om den failer, kom og si ifra!
 """
        )
             
@@ -31,6 +31,7 @@ with t1:
     
     #test = supabase.table("qeuer").select("*").execute()
     st.markdown("Skjema for sangforespørsel")
+    st.info("Merk, det er ingen lovnad om at vi kan sangen. Og sære sanger som ingen kan, vil ikke bli prioritert")        
     
     name = st.text_input("Hva er navnet ditt?")
     song = st.text_input("Hvilken sang vil du spille?")
