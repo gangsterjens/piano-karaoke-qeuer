@@ -21,6 +21,7 @@ if 'user_uuid' not in st.session_state:
     st.session_state['user_uuid'] = str(uuid.uuid4())
 
 user_uuid = st.session_state['user_uuid']
+request_uuid = str(uuid.uuid4())
 st.markdown("# Påmelding Karaoke - Broker! ")
 
 st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stjele showet fra mannen bak pianoet på pianobar, når vi kjører live-karakoe")
@@ -64,12 +65,14 @@ with t1:
             st.error("Artist mangler")
         else:
             current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            supabase.table("qeuer").insert({"uuid": user_uuid, 
+            supabase.table("qeuer").insert({"uuid": request_uuid, 
                                             "name": name,
                                             "song": song,
                                             "artist": artist,
                                             "created_at": current_time,
-                                            "is_custom":True}).execute()
+                                            "is_custom":True},
+                                            "user_uuid": user_uuid
+                                          ).execute()
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
 
 # Assuming supabase and user_uuid are already defined
@@ -107,12 +110,13 @@ with t2:
             elif button_send and len(form_name) > 0:
                 current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 supabase.table("qeuer").insert({
-                    "uuid": user_uuid, 
+                    "uuid": request_uuid, 
                     "name": form_name,
                     "song": el['song'],
                     "artist": el['artist'],
                     "created_at": current_time,
-                    "is_custom": False
+                    "is_custom": False,
+                    "user_uuid": user_uuid
                 }).execute()
                 st.session_state.submitted[button_key] = True
                 st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
