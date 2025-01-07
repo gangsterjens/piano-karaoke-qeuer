@@ -2,9 +2,25 @@ import streamlit as st
 from supabase import create_client, Client
 import uuid
 import datetime 
+from src import upload_playlist as up
 
-user_uuid = str(uuid.uuid4())
+#### local
+import config as sst
+############
 
+sb = up.SBClient(
+        api_url = sst.secrets["API_URL"],
+        api_key = sst.secrets["API_KEY"]
+        )
+
+current_owner = sb.get_current_owner()
+
+
+
+if 'user_uuid' not in st.session_state:
+    st.session_state['user_uuid'] = str(uuid.uuid4())
+
+user_uuid = st.session_state['user_uuid']
 st.markdown("# Påmelding Karaoke - Broker! ")
 
 st.markdown(" ## Endelig kan du være den fulle jævelen som har så lyst å stjele showet fra mannen bak pianoet på pianobar, når vi kjører live-karakoe")
@@ -16,15 +32,15 @@ st.info("""
 """
        )
             
-t2, t1, t3 = st.tabs(['Liste', 'Andre forslag', 'tilbakemeldinger'])
+t2, t1, t3 = st.tabs(['Liste', 'Andre forslag', 'Tilbakemeldinger'])
 
 with t1:
     # Initialize connection.
     # Uses st.cache_resource to only run once.
     @st.cache_resource
     def init_connection():
-        url = st.secrets["API_URL"]
-        key = st.secrets["API_KEY"]
+        url = sst.secrets["API_URL"]
+        key = sst.secrets["API_KEY"]
         return create_client(url, key)
     
     supabase = init_connection()
@@ -52,7 +68,8 @@ with t1:
                                             "name": name,
                                             "song": song,
                                             "artist": artist,
-                                            "created_at": current_time}).execute()
+                                            "created_at": current_time,
+                                            "is_custom":True}).execute()
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
 
 # Assuming supabase and user_uuid are already defined
@@ -63,7 +80,7 @@ if "submitted" not in st.session_state:
 with t2:
     st.markdown("Her er en liste med sanger vi kan")
     
-    test = supabase.table("song_list").select("*").execute()
+    test = supabase.table("current_playlist").select("*").eq("owner", current_owner).execute()
     search_query = st.text_input("Søk etter sang eller artist")
     filtered_data = [el for el in test.data if search_query.lower() in el['artist'].lower() or search_query.lower() in el['song'].lower()]
 
@@ -94,7 +111,8 @@ with t2:
                     "name": form_name,
                     "song": el['song'],
                     "artist": el['artist'],
-                    "created_at": current_time
+                    "created_at": current_time,
+                    "is_custom": False
                 }).execute()
                 st.session_state.submitted[button_key] = True
                 st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
