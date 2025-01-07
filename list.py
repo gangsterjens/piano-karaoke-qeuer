@@ -11,6 +11,8 @@ def init_connection():
     key = st.secrets["API_KEY"]
     return create_client(url, key)
 
+st.markdown("# Admin page")
+
 supabase = init_connection()
 queue_list = supabase.table("qeuer").select("*").eq("have_played", False).execute()
 
