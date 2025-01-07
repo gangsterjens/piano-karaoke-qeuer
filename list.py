@@ -21,8 +21,7 @@ if len(queue_list.data) > 0:
     
     if 'buttons_clicked' not in st.session_state:
         st.session_state['buttons_clicked'] = set()
-    ### TEST ######################### Initialize session state
-    if 'confirm_remove_all' not in st.session_state:
+    ### TEST ######################### Initialize session stategit 
         st.session_state.confirm_remove_all = False
 
 # Button to initiate the removal process
