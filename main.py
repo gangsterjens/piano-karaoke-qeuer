@@ -70,9 +70,9 @@ with t1:
                                             "song": song,
                                             "artist": artist,
                                             "created_at": current_time,
-                                            "is_custom":True},
-                                            #"user_uuid": user_uuid
-                                          ).execute()
+                                            "is_custom":True,
+                                            "user_uuid": user_uuid
+                                           }).execute()
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
 
 # Assuming supabase and user_uuid are already defined
@@ -116,7 +116,7 @@ with t2:
                     "artist": el['artist'],
                     "created_at": current_time,
                     "is_custom": False,
-                    #"user_uuid": user_uuid
+                    "user_uuid": user_uuid
                 }).execute()
                 st.session_state.submitted[button_key] = True
                 st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
