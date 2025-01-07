@@ -11,7 +11,7 @@ def init_connection():
     key = st.secrets["API_KEY"]
     return create_client(url, key)
 
-st.markdown("# Admin page")
+
 
 supabase = init_connection()
 queue_list = supabase.table("qeuer").select("*").eq("have_played", False).execute()
@@ -27,6 +27,8 @@ if len(queue_list.data) > 0:
         st.session_state.confirm_remove_all = False
 
 # Button to initiate the removal process
+
+st.markdown("# Admin page")
     if st.button('Fjern alle'):
         st.session_state.confirm_remove_all = True
 
