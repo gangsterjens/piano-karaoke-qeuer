@@ -36,7 +36,7 @@ if len(queue_list.data) > 0:
     if st.session_state.confirm_remove_all:
         r1, r2 = st.columns(2)
         r1.error("Er du sikker på at du vil fjerne alle?")
-        if r2.button("JA få bort skitn"):
+        if r2.button("YES få bort skitn"):
         # Execute the update query
             supabase.table('qeuer').update({"have_played": True}).eq("have_played", False).execute()
         # Reset confirmation state
