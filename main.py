@@ -9,8 +9,8 @@ import config as sst
 ############
 
 sb = up.SBClient(
-        api_url = sst.secrets["API_URL"],
-        api_key = sst.secrets["API_KEY"]
+        api_url = st.secrets["API_URL"],
+        api_key = st.secrets["API_KEY"]
         )
 
 current_owner = sb.get_current_owner()
