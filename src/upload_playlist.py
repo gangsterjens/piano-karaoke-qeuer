@@ -1,10 +1,5 @@
-api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1bmZlbm1qdG1vY3pjd3dteHhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ5MjYwMzgsImV4cCI6MjA0MDUwMjAzOH0.msCNJTmvMyjmffzFR6AW9BoC_DyqLKSOawGwHSXgy5E'
-api_url = 'https://wunfenmjtmoczcwwmxxq.supabase.co'
-
-
 import requests
 from supabase import create_client, Client
-
 
 class SBClient():
   def __init__(self, api_key, api_url):
@@ -12,14 +7,41 @@ class SBClient():
     self.api_url = api_url
     self.supabase = create_client(api_url, api_key)
 
+  def get_users(self):
+    users = self.supabase.table("admin_users").select("owner_name").execute()
+    users = users.data
+    names_list = []
+    for name in users:
+      names_list.append(name['owner_name'])
+    return names_list
+    
+  def get_current_owner(self):
+    current_owner = self.supabase.table("admin_users").select("owner_name").eq("current_owner", True).execute()
+    if len(current_owner.data) > 0:
+      current_owner = current_owner.data[0]['owner_name']
+    else:
+      current_owner = 'Ingen'
+    return current_owner
+
+  def set_new_owner(self, new_owner):
+    former_owner = self.get_current_owner()
+    new_owner_true = self.supabase.table("admin_users").update({'current_owner': True}).eq('owner_name', new_owner).execute()
+    if len(new_owner_true.data) > 0 and former_owner != 'Ingen' and new_owner_true.data[0]['owner_name'] != former_owner:
+      old_owner_false = self.supabase.table("admin_users").update({'current_owner': False}).eq('owner_name', former_owner).execute()
+
+
   def add_playlist_to_db(self, songs, owner):
     song_current_json = {'owner': owner, 'is_current': True}
     try:      
-      update_current = supabase.table("song_list_current").update({'is_current': False}).eq('owner', owner).execute()
-      if len(update_current.data) > 0:
-        song_current = supabase.table("song_list_current").insert(song_current_json).execute()
+      update_current = self.supabase.table("song_list_current").update({'is_current': False}).eq('owner', owner).execute()
     except Exception as e:
       print(e)
+    
+    if len(update_current.data) > 0: # check if there was any data returned
+      try:
+        song_current = self.supabase.table("song_list_current").insert(song_current_json).execute()
+      except Exception as e:
+        print(e)
     
     if len(song_current.data) > 0:
       print(f"Successfully added {len(song_current.data)} songs to the database.")
