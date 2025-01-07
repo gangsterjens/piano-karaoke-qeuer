@@ -40,8 +40,8 @@ with t1:
     # Uses st.cache_resource to only run once.
     @st.cache_resource
     def init_connection():
-        url = sst.secrets["API_URL"]
-        key = sst.secrets["API_KEY"]
+        url = st.secrets["API_URL"]
+        key = st.secrets["API_KEY"]
         return create_client(url, key)
     
     supabase = init_connection()
