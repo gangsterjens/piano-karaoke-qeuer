@@ -71,7 +71,8 @@ with t1:
                                             "artist": artist,
                                             "created_at": current_time,
                                             "is_custom":True,
-                                            "user_uuid": user_uuid
+                                            "user_uuid": user_uuid,
+                                            "current_owner": current_owner
                                            }).execute()
             st.success('Rått! Du vil bli ropt opp når det er din tur!', icon="✅")
 
@@ -116,7 +117,8 @@ with t2:
                     "artist": el['artist'],
                     "created_at": current_time,
                     "is_custom": False,
-                    "user_uuid": user_uuid
+                    "user_uuid": user_uuid,
+                    "current_owner": current_owner
                 }).execute()
                 st.session_state.submitted[button_key] = True
                 st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
