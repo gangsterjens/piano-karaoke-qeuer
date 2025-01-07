@@ -11,10 +11,10 @@ st.markdown("# Admin page")
 
 
 sb = up.CreatePlaylist(
-        api_key=sst.secrets['API_KEY'],
-        api_url=sst.secrets['API_URL'],
-        spotify_client_id=sst.secrets['client_id'],
-        spotify_client_secret=sst.secrets['client_secret']
+        api_key=st.secrets['API_KEY'],
+        api_url=st.secrets['API_URL'],
+        spotify_client_id=st.secrets['client_id'],
+        spotify_client_secret=st.secrets['client_secret']
         )
 
 
