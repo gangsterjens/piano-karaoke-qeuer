@@ -3,7 +3,7 @@ from supabase import create_client, Client
 import datetime
 import time 
 import pandas as pd
-import config as sst # for local dev
+#import config as sst # for local dev
 from src import upload_playlist as up
 # Initialize connection.
 # Uses st.cache_resource to only run once.
@@ -21,8 +21,8 @@ sb = up.CreatePlaylist(
 
 @st.cache_resource
 def init_connection():
-    url = sst.secrets["API_URL"]
-    key = sst.secrets["API_KEY"]
+    url = st.secrets["API_URL"]
+    key = st.secrets["API_KEY"]
     return create_client(
         supabase_url=url, 
         supabase_key= key)
