@@ -28,7 +28,7 @@ if len(queue_list.data) > 0:
 
 # Button to initiate the removal process
 
-st.markdown("# Admin page")
+    st.markdown("# Admin page")
     if st.button('Fjern alle'):
         st.session_state.confirm_remove_all = True
 
