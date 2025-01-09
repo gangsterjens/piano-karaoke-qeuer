@@ -5,7 +5,7 @@ import streamlit.components.v1 as components
 st.title("Embedding a Web Page in Streamlit")
 
 # URL of the page to embed
-url = st.text_input("enter url here)
+url = st.text_input("enter url here")
 
 # HTML for embedding the page using an iframe
 iframe_html = f"""
