@@ -9,7 +9,7 @@ url = st.text_input("enter url here")
 
 # HTML for embedding the page using an iframe
 iframe_html = f"""
-<iframe src="{url}" width="100%" height="600px" frameborder="0"></iframe>
+<div id='rg_embed_link_378195' class='rg_embed_link' data-song-id='378195'>Read <a href='https://genius.com/Sia-chandelier-lyrics'>“Chandelier” by Sia</a> on Genius</div> <script crossorigin src='//genius.com/songs/378195/embed.js'></script>
 """
 
 # Display the iframe in the Streamlit app
