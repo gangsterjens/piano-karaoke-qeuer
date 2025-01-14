@@ -41,6 +41,7 @@ with t1:
         df = pd.DataFrame(queue_list.data)
         df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%dT%H:%M:%S', errors='coerce')
         df = df.sort_values('created_at')
+        st.write(df.dtypes)
         
         if 'buttons_clicked' not in st.session_state:
             st.session_state['buttons_clicked'] = set()
