@@ -37,7 +37,7 @@ t1, t2, t3 = st.tabs(['Kø', 'Legg til / Oppdater liste', 'Velg spilleliste'])
 with t1:
     st.markdown('## Kø')
     
-st.markdown('### For å skille mellom fra liste eller andre forslag <br> ❌ = Custom, <br> ✅ = Liste', unsafe_allow_html=True)
+    st.markdown('### For å skille mellom fra liste eller andre forslag <br> ❌ = Custom, <br> ✅ = Liste', unsafe_allow_html=True)
 
     if len(queue_list.data) > 0:
         df = pd.DataFrame(queue_list.data)
