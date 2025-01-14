@@ -67,12 +67,13 @@ with t1:
         co1.markdown('## Navn')
         co2.markdown(' ## Sang/ Artist')
         co3.write('Fjern hvis sang ferdig / ikke møtt opp')
-        df = df[['uuid', 'name', 'song', 'artist', 'have_played']]
+        df = df[['uuid', 'name', 'song', 'artist', 'have_played', 'is_custom']]
         for index, row in df.iterrows():
             st.markdown("<hr>", unsafe_allow_html=True)
             c1, c2, c3 = st.columns([3, 4, 2])
             c1.write(f"{row['name']}")
-            c2.write(f" {row['song']} | {row['artist']}")
+            custom_check = '✅' if row['is_custom'] == 'false' else  '❌'    
+            c2.write(f" {row['song']} | {row['artist']} {custom_check}")
         
             # Use a unique key for each button
             if c3.button('Fjern', key=row['uuid']):
