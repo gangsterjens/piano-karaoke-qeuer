@@ -7,7 +7,7 @@ import pandas as pd
 from src import upload_playlist as up
 # Initialize connection.
 # Uses st.cache_resource to only run once.
-st.markdown("# Admin page")
+st.markdown("# Admin page <3")
 
 
 sb = up.CreatePlaylist(
