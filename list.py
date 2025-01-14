@@ -41,7 +41,6 @@ with t1:
         df = pd.DataFrame(queue_list.data)
         df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%dT%H:%M:%S', errors='coerce')
         df = df.sort_values('created_at')
-        st.write(df.dtypes)
         
         if 'buttons_clicked' not in st.session_state:
             st.session_state['buttons_clicked'] = set()
@@ -73,7 +72,7 @@ with t1:
             st.markdown("<hr>", unsafe_allow_html=True)
             c1, c2, c3 = st.columns([3, 4, 2])
             c1.write(f"{row['name']}")
-            custom_check = '✅' if row['is_custom'] == 'false' else  '❌'    
+            custom_check = '✅' if row['is_custom'] == False else  '❌'    
             c2.write(f" {row['song']} | {row['artist']} {custom_check}")
         
             # Use a unique key for each button
