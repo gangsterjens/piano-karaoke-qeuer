@@ -125,11 +125,12 @@ with t2:
             #else:
 #                st.write("Request already submitted.")
 with t3:
-     st.markdown("# Ta sjansen! 🦄")
-     st.markdown("""
-             ## Kommer du ikke på en sang du vil spille? 
-             Skriv inn navnet ditt her, og få en sang utdelt. Mest sannsynlig er det en allsang, og en du kjenner!
-             """)
+    st.markdown("# Ta sjansen! 🦄")
+    st.markdown("""
+        ## Kommer du ikke på en sang du vil spille? 
+        Skriv inn navnet ditt her, og få en sang utdelt. Mest sannsynlig er det en allsang, og en du kjenner!
+        """
+               )
     chance_name = st.text_input('Skriv inn navnet ditt her')
     chance_butt = st.button('Send inn')
     if chance_butt and len(chance_name) == 0:
