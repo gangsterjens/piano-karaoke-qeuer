@@ -33,7 +33,7 @@ st.info("""
 """
        )
             
-t2, t1, t3 = st.tabs(['Liste', 'Andre forslag', 'Tilbakemeldinger'])
+t2, t1, t3, 4 = st.tabs(['Liste', 'Andre forslag', 'Ta sjansen!' ,'Tilbakemeldinger'])
 
 with t1:
     # Initialize connection.
@@ -124,9 +124,34 @@ with t2:
                 st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
             #else:
 #                st.write("Request already submitted.")
-
 with t3:
-    st.info("Siden dette er første gang vi kjører dette, tar vi gjerne tilbakemeldinger!")
+     st.markdown("# Ta sjansen! 🦄)
+     st.markdown("""
+             ## Kommer du ikke på en sang du vil spille? 
+             Skriv inn navnet ditt her, og få en sang utdelt. Mest sannsynlig er det en allsang, og en du kjenner!
+             """)
+    chance_name = st.text_input('Skriv inn navnet ditt her')
+    chance_butt = st.button('Send inn')
+    if chance_butt and len(chance_name) == 0:
+        st.error('Skriv inn navnet ditt')
+    elif chance_butt and len(chance_name) > 0:
+        current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        supabase.table("qeuer").insert({
+                "uuid": request_uuid, 
+                "name": chance_name,
+                "song": 'SJANSE',
+                "artist": 'SJANSE',
+                "created_at": current_time,
+                "is_custom": False,
+                "user_uuid": user_uuid,
+                "present_owner": current_owner
+        }).execute()
+        st.session_state.submitted[button_key] = True
+        st.success('Nydelig! Du vil bli ropt opp når det er din tur!', icon="✅")
+            
+        
+with t4:
+    st.info("Si gjerne hva du savner, hva du digger, og tja, hva du ikke liker! ")
     feedback = st.text_input('Kom med feedback her <3')
     button_feedback = st.button('Send inn!', key='feedback')
     if (len(feedback) > 0) & (len(feedback) < 200) & button_feedback:
