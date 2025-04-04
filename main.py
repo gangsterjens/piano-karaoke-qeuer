@@ -33,7 +33,7 @@ st.info("""
 """
        )
             
-t2, t1, t3, 4 = st.tabs(['Liste', 'Andre forslag', 'Ta sjansen!' ,'Tilbakemeldinger'])
+t2, t1, t3, t4 = st.tabs(['Liste', 'Andre forslag', 'Ta sjansen!' ,'Tilbakemeldinger'])
 
 with t1:
     # Initialize connection.
