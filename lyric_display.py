@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 from src.lyrics import get_g_lyrics
 
 access_token = st.secrets['genius_token']
+st.write(access_token)
 
 song = st.text_input('Skriv inn sang')
 
