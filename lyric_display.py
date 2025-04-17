@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
+from src.lyrics import get_g_lyrics
 
 
 song = st.text_input('Skriv inn sang')
