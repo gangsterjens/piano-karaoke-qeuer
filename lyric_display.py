@@ -2,6 +2,8 @@ import streamlit as st
 import streamlit.components.v1 as components
 from src.lyrics import get_g_lyrics
 
+st.write('test')
+
 access_token = st.secrets['genius_token']
 st.write(access_token)
 
