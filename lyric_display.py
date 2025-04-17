@@ -2,9 +2,9 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 
-song = st.input('Skriv inn sang')
+song = st.text_input('Skriv inn sang')
 
-artist = st.input('Skriv inn artist')
+artist = st.text_input('Skriv inn artist')
 
 if st.button('Find lyrics'):
 # Streamlit app ti
