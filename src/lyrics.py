@@ -1,3 +1,4 @@
+import streamlit as st
 import lyricsgenius
 
 def get_g_lyrics(song, artist=None):
