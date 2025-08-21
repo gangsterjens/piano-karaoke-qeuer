@@ -16,11 +16,16 @@ sb = up.SBClient(
 current_owner = sb.get_current_owner()
 
 
+from streamlit_cookies_controller import CookieController
 
-if 'user_uuid' not in st.session_state:
-    st.session_state['user_uuid'] = str(uuid.uuid4())
+controller = CookieController()
+# On new visitor
+uid = controller.get("uid")
+if not uid:
+    uid = str(uuid.uuid4())
+    controller.set("uid", uid, max_age=3600 * 24 * 60 * 60)  # 1 year
 
-user_uuid = st.session_state['user_uuid']
+user_uuid = uid
 request_uuid = str(uuid.uuid4())
 st.markdown("# Påmelding Karaoke - Broker! ")
 
