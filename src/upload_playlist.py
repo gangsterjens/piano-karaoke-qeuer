@@ -108,13 +108,20 @@ class CreatePlaylist(SBClient):
 
     songs = []
     for track in data['tracks']['items']:
-      tmp_song_dict = {}
-      song = track['track']['name'].replace('ae', 'æ')
-      artist = (track['track']['artists'][0]['name']).replace('ae', 'æ')
-      song_id = track['track']['id']
-      tmp_song_dict['artist'] = artist
-      tmp_song_dict['song'] = song
-      tmp_song_dict['spotify_id'] = song_id
-      #tmp_song_dict['owner'] = owner
-      songs.append(tmp_song_dict)
+        # Skip if no track object (Spotify marks removed/unavailable tracks this way)
+        if not track.get('track'):
+            continue
+    
+        tmp_song_dict = {}
+        song = track['track']['name'].replace('ae', 'æ')
+        artist = track['track']['artists'][0]['name'].replace('ae', 'æ')
+        song_id = track['track']['id']
+    
+        tmp_song_dict['artist'] = artist
+        tmp_song_dict['song'] = song
+        tmp_song_dict['spotify_id'] = song_id
+        # tmp_song_dict['owner'] = owner
+    
+        songs.append(tmp_song_dict)
+    
     return songs
